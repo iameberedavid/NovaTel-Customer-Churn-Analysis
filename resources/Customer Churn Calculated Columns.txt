@@ -1,4 +1,4 @@
-TenureBucket = 
+TenureLabel = 
 SWITCH(
     TRUE(),
     NovaTel_Churn_Data[tenure] <= 12, "0-12 months",
@@ -7,7 +7,7 @@ SWITCH(
     "49-72 months"
 )
 
-TenureBucketSort = 
+TenureSortValue = 
 SWITCH(
     TRUE(),
     NovaTel_Churn_Data[tenure] <= 12, 1,
@@ -34,7 +34,7 @@ SWITCH(
     "Low"
 )
 
-RiskLabelSort = 
+RiskSortValue = 
 SWITCH(
     TRUE(),
     NovaTel_Churn_Data[Risk Score] >= 8, 1,
