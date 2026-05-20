@@ -1,0 +1,44 @@
+TenureBucket = 
+SWITCH(
+    TRUE(),
+    NovaTel_Churn_Data[tenure] <= 12, "0-12 months",
+    NovaTel_Churn_Data[tenure] <= 24, "13-24 months",
+    NovaTel_Churn_Data[tenure] <= 48, "25-48 months",
+    "49-72 months"
+)
+
+TenureBucketSort = 
+SWITCH(
+    TRUE(),
+    NovaTel_Churn_Data[tenure] <= 12, 1,
+    NovaTel_Churn_Data[tenure] <= 24, 2,
+    NovaTel_Churn_Data[tenure] <= 48, 3,
+    4
+)
+
+RiskScore = 
+    IF(NovaTel_Churn_Data[tenure] <= 12,                              3, 0) +
+    IF(NovaTel_Churn_Data[InternetService] = "Fiber optic",           2, 0) +
+    IF(NovaTel_Churn_Data[PaymentMethod] = "Electronic check",        2, 0) +
+    IF(NovaTel_Churn_Data[Contract] = "Month-to-month",               2, 0) +
+    IF(NovaTel_Churn_Data[TechSupport] = "No",                        1, 0) +
+    IF(NovaTel_Churn_Data[SeniorCitizen] = "Yes",                     1, 0) +
+    IF(NovaTel_Churn_Data[Partner] = "No",                            1, 0)
+
+RiskLabel = 
+SWITCH(
+    TRUE(),
+    NovaTel_Churn_Data[Risk Score] >= 8, "Critical",
+    NovaTel_Churn_Data[Risk Score] >= 6, "High",
+    NovaTel_Churn_Data[Risk Score] >= 4, "Medium",
+    "Low"
+)
+
+RiskLabelSort = 
+SWITCH(
+    TRUE(),
+    NovaTel_Churn_Data[Risk Score] >= 8, 1,
+    NovaTel_Churn_Data[Risk Score] >= 6, 2,
+    NovaTel_Churn_Data[Risk Score] >= 4, 3,
+    4
+)
