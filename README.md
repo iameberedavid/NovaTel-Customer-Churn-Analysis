@@ -1,16 +1,22 @@
-# NovaTel-Customer-Churn-Analysis
+# NovaTel Customer Churn Analysis
 
-![Data Analysis](https://img.shields.io/badge/Data%20Analysis-brightgreen)
 ![Microsoft Excel](https://img.shields.io/badge/Microsoft%20Excel-blue)
-![SQL](https://img.shields.io/badge/SQL-brightgreen)
+![SQL](https://img.shields.io/badge/SQL-blue)
 ![Power BI](https://img.shields.io/badge/Power%20BI-blue)
+![Data Analysis](https://img.shields.io/badge/Data%20Analysis-brightgreen)
 ![Customer Churn](https://img.shields.io/badge/Customer%20Churn-brightgreen)
-![Telecom](https://img.shields.io/badge/Telecommunications%20Industry-blue)
+![Telecom](https://img.shields.io/badge/Telecommunications%20Industry-brightgreen)
 ![MIT](https://img.shields.io/badge/MIT%20License-brightgreen)
+
+## 💼 Business Problem
+
+NovaTel has experienced increasing customer attrition, leading to revenue loss and reduced customer lifetime value. The company seeks to understand the major drivers of churn, identify high-risk customers, and develop data-driven retention strategies to improve customer loyalty and profitability.
+
+---
 
 ## Project Overview
 
-This is an end-to-end customer churn analysis project for **NovaTel**, a fictional medium-sized telecommunications company. The project focuses on analyzing customer behavior, identifying churn patterns, uncovering key retention drivers, and generating actionable business insights using data analytics and visualization techniques.
+This is an end-to-end customer churn analysis project for **NovaTel**. The project focuses on analyzing customer behavior, identifying churn patterns, uncovering key retention drivers, and generating actionable business insights using data analytics and visualization techniques.
 
 The analysis was conducted using:
 - Microsoft Excel for data cleaning
@@ -70,11 +76,13 @@ The analysis was conducted using:
 ```bash
 NovaTel-Customer-Churn-Analysis/
 │
+├── businessunderstanding.pdf
 ├── data/
 ├── sql/
 ├── powerbi/
 ├── dashboards/
 ├── images/
+├── novatelcustomerchurnanalysispresentation.pdf
 ├── README.md
 └── LICENSE
 ```
