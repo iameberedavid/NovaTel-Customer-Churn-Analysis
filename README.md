@@ -76,8 +76,8 @@ The analysis was conducted using:
 ```bash
 NovaTel-Customer-Churn-Analysis/
 │
-├── docs/
 ├── data/
+├── docs/
 ├── sql/
 ├── powerbi/
 ├── dashboards/
