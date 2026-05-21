@@ -14,7 +14,7 @@ NovaTel has experienced increasing customer attrition, leading to revenue loss a
 
 ---
 
-## Project Overview
+## 📌 Project Overview
 
 This is an end-to-end customer churn analysis project for **NovaTel**. The project focuses on analyzing customer behavior, identifying churn patterns, uncovering key retention drivers, and generating actionable business insights using data analytics and visualization techniques.
 
