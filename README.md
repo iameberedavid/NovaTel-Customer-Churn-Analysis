@@ -76,13 +76,12 @@ The analysis was conducted using:
 ```bash
 NovaTel-Customer-Churn-Analysis/
 │
-├── businessunderstanding.pdf
+├── docs/
 ├── data/
 ├── sql/
 ├── powerbi/
 ├── dashboards/
 ├── images/
-├── novatelcustomerchurnanalysispresentation.pdf
 ├── README.md
 └── LICENSE
 ```
