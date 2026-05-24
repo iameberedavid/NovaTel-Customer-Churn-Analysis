@@ -8,38 +8,8 @@ UNION(
     ADDCOLUMNS(
         CALENDAR(_year_start, _max_date),
         "Time Period", "YTD",
-        "SortOrder", 1,
+        "SortOrder", 5,
         "Period", "Year To Date"
-    ),
-
-    ADDCOLUMNS(
-        CALENDAR(
-            EOMONTH(_max_date, -2) + 1,
-            EOMONTH(_max_date, -1)
-        ),
-        "Time Period", "PM",
-        "SortOrder", 2,
-        "Period", "Prior Month"
-    ),
-
-    ADDCOLUMNS(
-        CALENDAR(
-            EOMONTH(_max_date, -3) + 1,
-            _max_date
-        ),
-        "Time Period", "3M",
-        "SortOrder", 3,
-        "Period", "3 Months"
-    ),
-
-    ADDCOLUMNS(
-        CALENDAR(
-            EOMONTH(_max_date, -6) + 1,
-            _max_date
-        ),
-        "Time Period", "6M",
-        "SortOrder", 4,
-        "Period", "6 Months"
     ),
 
     ADDCOLUMNS(
@@ -48,7 +18,37 @@ UNION(
             _max_date
         ),
         "Time Period", "12M",
-        "SortOrder", 5,
+        "SortOrder", 4,
         "Period", "12 Months"
+    ),
+
+    ADDCOLUMNS(
+        CALENDAR(
+            EOMONTH(_max_date, -6) + 1,
+            _max_date
+        ),
+        "Time Period", "6M",
+        "SortOrder", 3,
+        "Period", "6 Months"
+    ),
+
+    ADDCOLUMNS(
+        CALENDAR(
+            EOMONTH(_max_date, -3) + 1,
+            _max_date
+        ),
+        "Time Period", "3M",
+        "SortOrder", 2,
+        "Period", "3 Months"
+    ),
+
+    ADDCOLUMNS(
+        CALENDAR(
+            EOMONTH(_max_date, -2) + 1,
+            EOMONTH(_max_date, -1)
+        ),
+        "Time Period", "PM",
+        "SortOrder", 1,
+        "Period", "Prior Month"
     )
 )
