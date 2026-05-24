@@ -5,7 +5,7 @@
 ![Power BI](https://img.shields.io/badge/Power%20BI-blue)
 ![Data Analysis](https://img.shields.io/badge/Data%20Analysis-brightgreen)
 ![Customer Churn](https://img.shields.io/badge/Customer%20Churn-brightgreen)
-![Telecom](https://img.shields.io/badge/Telecommunications%20Industry-brightgreen)
+![Telecom](https://img.shields.io/badge/Telecommunications-brightgreen)
 ![MIT](https://img.shields.io/badge/MIT%20License-brightgreen)
 
 ## 💼 Business Problem
