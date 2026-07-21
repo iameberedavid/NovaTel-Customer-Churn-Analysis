@@ -1,0 +1,191 @@
+Top Risk Customers HTML = 
+ 
+// ── Footer counts ──
+VAR critCount = FORMAT([Critical Active Count], "#,0")
+VAR highCount = FORMAT([High Active Count],     "#,0")
+VAR medCount  = FORMAT([Medium Active Count],   "#,0")
+VAR lowCount  = FORMAT([Low Active Count],      "#,0")
+ 
+// ── Top 8 Critical active customers sorted by $/mo desc ──────
+// DAX cannot do row-level iteration in a string measure cleanly,
+// so we pull each row explicitly using TOPN + SELECTCOLUMNS
+ 
+VAR TopRows =
+    TOPN(
+        5,
+        FILTER(
+            Telco_Churn,
+            Telco_Churn[Churn]       = "No" &&
+            Telco_Churn[Risk Label]  = "Critical" &&
+            Telco_Churn[Contract]    = "Month-to-month"
+        ),
+        Telco_Churn[MonthlyCharges], DESC
+    )
+ 
+VAR RowData =
+    SELECTCOLUMNS(
+        TopRows,
+        "ID",      Telco_Churn[customerID],
+        "Tenure",  Telco_Churn[tenure],
+        "Net",     Telco_Churn[InternetService],
+        "Pay",     Telco_Churn[PaymentMethod],
+        "Mo",      Telco_Churn[MonthlyCharges],
+        "Risk",    Telco_Churn[Risk Label]
+    )
+ 
+// ── Build HTML rows via CONCATENATEX ─────────────────────────
+VAR _Rows =
+    CONCATENATEX(
+        RowData,
+        "<tr>" &
+        "<td class='cid'>" & [ID] & "</td>" &
+        "<td>" & [Tenure] & " mo</td>" &
+        "<td>" & IF([Net] = "Fiber optic", "Fiber", [Net]) & "</td>" &
+        "<td>" & IF([Pay] = "Electronic check", "E-check", IF([Pay] = "Mailed check", "Mailed chk", IF([Pay] = "Bank transfer (automatic)", "Bank transfer", "Credit card"))) & "</td>" &
+        "<td>$" & FORMAT([Mo], "0") & "</td>" &
+        "<td><span class='badge-" & LOWER([Risk]) & "'>" & [Risk] & "</span></td>" &
+        "</tr>",
+        "",
+        [Mo], DESC
+    )
+ 
+VAR CSS =
+"<style>
+*{
+    box-sizing:border-box;
+    margin:0;
+    padding:0
+}
+
+body{
+    font-family:'Segoe UI',sans-serif;
+    background:#ffffff;
+    padding:16px;
+    color:#111827
+}
+
+.header-title{
+    font-size:23px;
+    font-weight:600;
+    color:#111827;
+    margin-bottom:10px
+}
+
+
+
+table{
+    width:100%;
+    border-collapse:collapse
+}
+
+thead th{
+    font-size:15px;
+    color:#6b7280;
+    text-transform:uppercase;
+    letter-spacing:.06em;
+    padding:0 10px 8px 0;
+    text-align:left;
+    border-bottom:1px solid #e5e7eb
+}
+
+tbody tr{
+    border-bottom:1px solid #f1f5f9
+}
+
+tbody tr:last-child{
+    border-bottom:none
+}
+
+tbody td{
+    font-size:16px;
+    color:#374151;
+    padding:10px 10px 10px 0;
+    font-family:'Segoe UI',sans-serif
+}
+
+.cid{
+    color:#111827;
+    font-weight:600
+}
+
+.badge-critical{
+    background:rgba(255,77,109,0.10);
+    color:#ff4d6d;
+    font-size:13px;
+    font-weight:600;
+    padding:4px 10px;
+    border-radius:99px;
+    display:inline-block
+}
+
+.badge-high{
+    background:rgba(245,158,11,0.10);
+    color:#f59e0b;
+    font-size:13px;
+    font-weight:600;
+    padding:4px 10px;
+    border-radius:99px;
+    display:inline-block
+}
+
+.badge-medium{
+    background:rgba(245,158,11,0.10);
+    color:#f59e0b;
+    font-size:13px;
+    font-weight:600;
+    padding:4px 10px;
+    border-radius:99px;
+    display:inline-block
+}
+
+.badge-low{
+    background:rgba(45,212,160,0.10);
+    color:#2dd4a0;
+    font-size:13px;
+    font-weight:600;
+    padding:4px 10px;
+    border-radius:99px;
+    display:inline-block
+}
+
+</style>"
+ 
+RETURN
+"<!DOCTYPE html>
+<html>
+<head>" &
+
+CSS &
+
+"</head>
+
+<body>
+
+<div class='header-title'>
+Top high-risk customers
+</div>
+
+
+<table>
+
+<thead>
+<tr>
+<th>CUSTOMER ID</th>
+<th>TENURE</th>
+<th>INTERNET</th>
+<th>PAYMENT</th>
+<th>$/MO</th>
+<th>RISK</th>
+</tr>
+</thead>
+
+<tbody>
+" & _Rows & "
+</tbody>
+
+</table>
+
+
+
+</body>
+</html>"

@@ -1,0 +1,141 @@
+Risk Cards HTML = 
+ 
+VAR cCount   = FORMAT([Critical Total Count],  "#,0")
+VAR cRev     = "$" & FORMAT([Critical Risk Revenue] / 1000, "0") & "K"
+VAR cCharge  = "$" & FORMAT([Avg Charge Critical], "0.00")
+VAR cTenure  = FORMAT([Avg Tenure Critical], "0.0") & " mo"
+VAR cFiber   = FORMAT([Fiber % Critical], "0%")
+VAR cEck     = FORMAT([ECheck % Critical], "0%")
+VAR cBarW    = FORMAT(DIVIDE([Avg Tenure Critical], 72) * 100, "0") & "%"
+ 
+VAR hCount   = FORMAT([High Total Count],  "#,0")
+VAR hRev     = "$" & FORMAT([High Risk Revenue] / 1000, "0") & "K"
+VAR hCharge  = "$" & FORMAT([Avg Charge High], "0.00")
+VAR hTenure  = FORMAT([Avg Tenure High], "0.0") & " mo"
+VAR hFiber   = FORMAT([Fiber % High], "0%")
+VAR hEck     = FORMAT([ECheck % High], "0%")
+VAR hBarW    = FORMAT(DIVIDE([Avg Tenure High], 72) * 100, "0") & "%"
+ 
+VAR mCount   = FORMAT([Medium Total Count],  "#,0")
+VAR mRev     = "$" & FORMAT([Medium Risk Revenue] / 1000, "0") & "K"
+VAR mCharge  = "$" & FORMAT([Avg Charge Medium], "0.00")
+VAR mTenure  = FORMAT([Avg Tenure Medium], "0.0") & " mo"
+VAR mFiber   = FORMAT([Fiber % Medium], "0%")
+VAR mEck     = FORMAT([ECheck % Medium], "0%")
+VAR mBarW    = FORMAT(DIVIDE([Avg Tenure Medium], 72) * 100, "0") & "%"
+ 
+VAR lCount   = FORMAT([Low Total Count],  "#,0")
+VAR lRev     = "$" & FORMAT([Low Risk Revenue] / 1000, "0") & "K"
+VAR lCharge  = "$" & FORMAT([Avg Charge Low], "0.00")
+VAR lTenure  = FORMAT([Avg Tenure Low], "0.0") & " mo"
+VAR lFiber   = FORMAT([Fiber % Low], "0%")
+VAR lEck     = FORMAT([ECheck % Low], "0%")
+VAR lBarW    = FORMAT(DIVIDE([Avg Tenure Low], 72) * 100, "0") & "%"
+ 
+VAR CSS = "
+<style>
+*{box-sizing:border-box;margin:0;padding:0}
+body{
+    font-family:'Segoe UI',sans-serif;
+    background:transparent;
+    padding:14px
+}
+.grid{
+    display:grid;
+    grid-template-columns:repeat(4,1fr);
+    gap:12px;
+    transform:scale(1.2);
+    transform-origin:top left;
+    width:83.33%;
+}
+.card{
+    background:#ffffff;
+    border-radius:10px;
+    padding:14px;
+    border-top:3px solid var(--a);
+    display:flex;
+    flex-direction:column;
+    gap:10px;
+    border:1px solid #e5e7eb;
+}
+.critical{--a:#ff4d6d;--ad:rgba(255,77,109,0.15)}
+.high{--a:#f59e0b;--ad:rgba(245,158,11,0.10)}
+.medium{--a:#f59e0b;--ad:rgba(245,158,11,0.10)}
+.low{--a:#2dd4a0;--ad:rgba(45,212,160,0.15)}
+.ch{display:flex;justify-content:space-between;align-items:center}
+.rl{font-family:'Segoe UI',sans-serif;font-size:18px;font-weight:600;color:var(--a)}
+.cc{font-size:15px;color:#5a6070;font-family:'Segoe UI',sans-serif;}
+.kr{display:grid;grid-template-columns:1fr 1fr;gap:6px}
+.kb{
+    background:#f8fafc;
+    border-radius:6px;
+    padding:9px 10px;
+    border:1px solid #e5e7eb;
+}
+.kv{font-family:'Segoe UI',sans-serif;font-size:22px;font-weight:600;color:var(--a);line-height:1}
+.kl{font-size:14px;color:#5a6070;margin-top:4px;text-transform:uppercase;letter-spacing:.04em}
+.sv{
+    font-family:'Segoe UI',sans-serif;
+    font-size:20px;
+    font-weight:600;
+    color:#111827
+}
+.sl{font-size:14px;color:#5a6070;margin-top:3px;text-transform:uppercase;letter-spacing:.04em}
+.th{display:flex;justify-content:space-between;align-items:center}
+.tl{font-size:14px;color:#5a6070;text-transform:uppercase;letter-spacing:.04em}
+.tv{font-family:'Segoe UI',sans-serif;font-size:16px;font-weight:600;color:var(--a)}
+.tt{
+    height:4px;
+    background:#e2e8f0;
+    border-radius:99px;
+    overflow:hidden;
+    margin-top:5px
+}
+.tf{height:100%;background:var(--a);border-radius:99px}
+.af{background:var(--ad);border-radius:6px;padding:8px 10px;font-size:14px;color:#8a90a0;line-height:1.5;border-left:2px solid var(--a)}
+.af b{color:var(--a);font-weight:600}
+.dv{
+    height:1px;
+    background:#e5e7eb
+}
+</style>"
+ 
+VAR _HTML =
+"<!DOCTYPE html><html><head><link href='https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@400;600&family=IBM+Plex+Sans:wght@400;500;600&display=swap' rel='stylesheet'>" & CSS & "</head><body><div class='grid'>" &
+ 
+"<div class='card critical'>" &
+  "<div class='ch'><span class='rl'>Critical</span><span class='cc'>" & cCount & " customers</span></div>" &
+  "<div class='kr'><div class='kb'><div class='kv'>" & cRev & "</div><div class='kl'>Monthly revenue</div></div><div class='kb'><div class='kv'>" & cCharge & "</div><div class='kl'>Avg charge</div></div></div>" &
+  "<div class='dv'></div>" &
+  "<div class='kr'><div class='kb'><div class='sv'>" & cFiber & "</div><div class='sl'>Fiber optic</div></div><div class='kb'><div class='sv'>" & cEck & "</div><div class='sl'>E-check</div></div></div>" &
+  "<div><div class='th'><span class='tl'>Avg tenure</span><span class='tv'>" & cTenure & "</span></div><div class='tt'><div class='tf' style='width:" & cBarW & "'></div></div></div>" &
+"</div>" &
+ 
+"<div class='card high'>" &
+  "<div class='ch'><span class='rl'>High</span><span class='cc'>" & hCount & " customers</span></div>" &
+  "<div class='kr'><div class='kb'><div class='kv'>" & hRev & "</div><div class='kl'>Monthly revenue</div></div><div class='kb'><div class='kv'>" & hCharge & "</div><div class='kl'>Avg charge</div></div></div>" &
+  "<div class='dv'></div>" &
+  "<div class='kr'><div class='kb'><div class='sv'>" & hFiber & "</div><div class='sl'>Fiber optic</div></div><div class='kb'><div class='sv'>" & hEck & "</div><div class='sl'>E-check</div></div></div>" &
+  "<div><div class='th'><span class='tl'>Avg tenure</span><span class='tv'>" & hTenure & "</span></div><div class='tt'><div class='tf' style='width:" & hBarW & "'></div></div></div>" &
+"</div>" &
+ 
+"<div class='card medium'>" &
+  "<div class='ch'><span class='rl'>Medium</span><span class='cc'>" & mCount & " customers</span></div>" &
+  "<div class='kr'><div class='kb'><div class='kv'>" & mRev & "</div><div class='kl'>Monthly revenue</div></div><div class='kb'><div class='kv'>" & mCharge & "</div><div class='kl'>Avg charge</div></div></div>" &
+  "<div class='dv'></div>" &
+  "<div class='kr'><div class='kb'><div class='sv'>" & mFiber & "</div><div class='sl'>Fiber optic</div></div><div class='kb'><div class='sv'>" & mEck & "</div><div class='sl'>E-check</div></div></div>" &
+  "<div><div class='th'><span class='tl'>Avg tenure</span><span class='tv'>" & mTenure & "</span></div><div class='tt'><div class='tf' style='width:" & mBarW & "'></div></div></div>" &
+"</div>" &
+ 
+"<div class='card low'>" &
+  "<div class='ch'><span class='rl'>Low</span><span class='cc'>" & lCount & " customers</span></div>" &
+  "<div class='kr'><div class='kb'><div class='kv'>" & lRev & "</div><div class='kl'>Monthly revenue</div></div><div class='kb'><div class='kv'>" & lCharge & "</div><div class='kl'>Avg charge</div></div></div>" &
+  "<div class='dv'></div>" &
+  "<div class='kr'><div class='kb'><div class='sv'>" & lFiber & "</div><div class='sl'>Fiber optic</div></div><div class='kb'><div class='sv'>" & lEck & "</div><div class='sl'>E-check</div></div></div>" &
+  "<div><div class='th'><span class='tl'>Avg tenure</span><span class='tv'>" & lTenure & "</span></div><div class='tt'><div class='tf' style='width:" & lBarW & "'></div></div></div>" &
+"</div>" &
+ 
+"</div></body></html>"
+ 
+RETURN _HTML
+ 
